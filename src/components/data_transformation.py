@@ -10,6 +10,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from src.utils import save_object
 from data_ingestion import DataIngestion
+from src.components.model_trainer import ModelTrainer, ModelTrainerConfig
 
 class DataTransformationConfig:
     preprocessor_obj_file_path:str = os.path.join('artifacts','preprocessor.pkl')
@@ -96,5 +97,9 @@ if __name__=='__main__':
     
     obj1 = DataIngestion()
     train_path, test_path = obj1.initiate_data_ingestion()
+
     obj2 = DataTransformation()
-    obj2.initiate_data_transformation(train_path, test_path)
+    train_arr, test_arr, _ = obj2.initiate_data_transformation(train_path, test_path)
+
+    obj3 = ModelTrainer()
+    obj3.initiate_model_trainer(train_arr, test_arr)
