@@ -19,6 +19,14 @@ def save_object(file_path, obj, context):
     except Exception as e:
         raise CustomException(e,sys)
     
+def load_object(file_path):
+    try:
+        with open(file_path,'rb') as f:
+            model = pickle.load(f)
+        return model
+    except Exception as e:
+        raise CustomException(e,sys)
+    
 def evaluate_models(x_train,x_test,y_train,y_test,models,params):
     model_report = {}
     try:
